@@ -5,6 +5,15 @@ const Movie = require("../schemas/Movie.js")
 
 const connection = {};
 
+/* connect function way more complicated than needs to be for what our task was
+ had corrupt db and was trying to figure out the errors 
+ this could simply be  as below
+
+ const connect = async () => {
+const db = await mongoose.connect(process.env.MONGO_URI); 
+ }
+
+*/
 const connect = async () => {
     if (connection.isConnected) {
         console.log('already connected');
@@ -25,12 +34,6 @@ const connect = async () => {
     connection.isConnected = db.connections[0].readyState;
 }
 
-const read = async(query)=> {
-    console.log("find filter is: ",query);
-    let results = await Movie.find(query,"title actor director rating addedAT updatedAt"); 
-    return results;
-}
-
 const disconnect=async ()=> {
     console.log("trying to disconnect");
     if (connection.isConnected) {
@@ -39,4 +42,4 @@ const disconnect=async ()=> {
     }
 }
 
-module.exports = { connect, disconnect ,read}
+module.exports = { connect, disconnect }
