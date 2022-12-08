@@ -18,6 +18,7 @@ const movieSchema = new mongoose.Schema({
         type: Number,
         min: 0,
         max: 10,
+        default:3,
     },
     addedAT: {
         type: Date,
